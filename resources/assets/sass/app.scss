@@ -1,9 +1,10 @@
+@import "~vue-material/dist/vue-material.min.css";
 
-// Fonts
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+@import "components/variables";
+@import "components/mixins";
+@import "components/shadows";
 
-// Variables
-@import "variables";
-
-// Bootstrap
-@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+@import "components/misc";
+@import "components/typography";
+@import "components/sidebar-and-main-panel";
+@import "components/cards";
