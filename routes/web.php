@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+app('router')->get(
+    '{path}', 'IndexController'
+)->where('path', '(.*)');
