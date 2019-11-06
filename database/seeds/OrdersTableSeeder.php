@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use \Illuminate\Database\Eloquent\Collection;
+use \App\Models\Order;
+use \App\Models\Product;
 
 class OrdersTableSeeder extends Seeder
 {
@@ -11,21 +14,26 @@ class OrdersTableSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker\Factory::create();
+        $limit    = 1000;
+        $products = Product::query()->get();
 
-        $limit = 1000;
-        $status = [0, 10, 20];
+        factory(Order::class, $limit)->create()->each(function (Order $order) use ($products) {
+            $this->generateOrdersProduct($order, $products);
+        });
+    }
 
-        for ($i = 0; $i < $limit; $i++) {
-            $createdAt = \Carbon\Carbon::now()->subDays(rand(0, 4));
-            \DB::table('orders')->insert([				
-				'status' => $status[rand(0,2)],
-				'client_email' => $faker->email,
-                'partner_id' => $faker->numberBetween(1, 20),
-                'delivery_dt' => $createdAt->copy()->addHours(rand(6,50)),
-                'created_at' => $createdAt,
-                'updated_at' => $createdAt->copy()->addHours(rand(1,5)),
-            ]);
+    private function generateOrdersProduct(Order $order, Collection $products)
+    {
+        for ($i = 0; $i < rand(1, 4); $i++) {
+            $product    = $products->random();
+            $quantity   = rand(1, 3);
+            $price      = $product->price;
+            $created_at = $order->created_at;
+            $updated_at = $order->updated_at;
+            $order->products()->attach(
+                $product->id,
+                compact('quantity', 'price', 'created_at', 'updated_at')
+            );
         }
     }
 }
