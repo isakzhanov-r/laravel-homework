@@ -22,7 +22,7 @@ class Order extends Model
 
     public function partner()
     {
-        return $this->belongsTo(Partner::class, 'id', 'partner_id');
+        return $this->belongsTo(Partner::class,  'partner_id','id');
     }
 
     public function products()

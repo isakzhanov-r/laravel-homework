@@ -2015,14 +2015,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'App'
 });
@@ -2212,6 +2204,74 @@ __webpack_require__.r(__webpack_exports__);
       if (this.autoClose && this.$sidebar && this.$sidebar.showSidebar === true) {
         this.$sidebar.displaySidebar(false);
       }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/vue/components/Table/NavTabsTable.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/vue/components/Table/NavTabsTable.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'nav-tabs-table',
+  props: {
+    items: {
+      type: Array,
+      "default": []
+    },
+    edit: {
+      type: Boolean,
+      "default": true
+    },
+    "delete": {
+      type: Boolean,
+      "default": false
+    }
+  },
+  data: function data() {
+    return {
+      selected: []
+    };
+  },
+  methods: {
+    onSelect: function onSelect(items) {
+      this.selected = items;
     }
   }
 });
@@ -31355,33 +31415,22 @@ var render = function() {
           [
             _c(
               "sidebar-link",
-              { attrs: { to: { name: "home" } } },
+              { attrs: { to: "/" } },
               [
                 _c("md-icon", [_vm._v("dashboard")]),
                 _vm._v(" "),
-                _c("p", [_vm._v("Dashboard")])
+                _c("p", [_vm._v("Главная")])
               ],
               1
             ),
             _vm._v(" "),
             _c(
               "sidebar-link",
-              { attrs: { to: "/user" } },
-              [
-                _c("md-icon", [_vm._v("person")]),
-                _vm._v(" "),
-                _c("p", [_vm._v("User Profile")])
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "sidebar-link",
-              { attrs: { to: "/table" } },
+              { attrs: { to: "/orders" } },
               [
                 _c("md-icon", [_vm._v("content_paste")]),
                 _vm._v(" "),
-                _c("p", [_vm._v("Table list")])
+                _c("p", [_vm._v("Заказы")])
               ],
               1
             ),
@@ -31426,17 +31475,6 @@ var render = function() {
                 _c("md-icon", [_vm._v("notifications")]),
                 _vm._v(" "),
                 _c("p", [_vm._v("Notifications")])
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "sidebar-link",
-              { staticClass: "active-pro", attrs: { to: "/upgrade" } },
-              [
-                _c("md-icon", [_vm._v("unarchive")]),
-                _vm._v(" "),
-                _c("p", [_vm._v("Upgrade to PRO")])
               ],
               1
             )
@@ -31643,6 +31681,115 @@ var render = function() {
             2
           )
         ]
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/vue/components/Table/NavTabsTable.vue?vue&type=template&id=5beb27ea&":
+/*!*****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/vue/components/Table/NavTabsTable.vue?vue&type=template&id=5beb27ea& ***!
+  \*****************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "md-table",
+        {
+          scopedSlots: _vm._u([
+            {
+              key: "md-table-row",
+              fn: function(ref) {
+                var item = ref.item
+                return _c(
+                  "md-table-row",
+                  {},
+                  [
+                    _c("md-table-cell", { attrs: { "md-label": "ID" } }, [
+                      _vm._v(_vm._s(item.client_email))
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "md-table-cell",
+                      [
+                        _c(
+                          "md-button",
+                          { staticClass: "md-just-icon md-simple md-primary" },
+                          [
+                            _c("md-icon", [_vm._v("edit")]),
+                            _vm._v(" "),
+                            _c(
+                              "md-tooltip",
+                              { attrs: { "md-direction": "top" } },
+                              [_vm._v("Edit")]
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "md-button",
+                          { staticClass: "md-just-icon md-simple md-danger" },
+                          [
+                            _c("md-icon", [_vm._v("close")]),
+                            _vm._v(" "),
+                            _c(
+                              "md-tooltip",
+                              { attrs: { "md-direction": "top" } },
+                              [_vm._v("Close")]
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              }
+            }
+          ]),
+          model: {
+            value: _vm.items,
+            callback: function($$v) {
+              _vm.items = $$v
+            },
+            expression: "items"
+          }
+        },
+        [
+          _vm._v(" "),
+          _c("md-table-pagination", {
+            attrs: {
+              "md-size": 5,
+              "md-total": 25,
+              "md-page": 1,
+              "md-label": "Rows",
+              "md-separator": "of",
+              "md-page-options": [5, 10, 25]
+            }
+          })
+        ],
+        1
       )
     ],
     1
@@ -81726,6 +81873,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/assets/vue/components/Table/NavTabsTable.vue":
+/*!****************************************************************!*\
+  !*** ./resources/assets/vue/components/Table/NavTabsTable.vue ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _NavTabsTable_vue_vue_type_template_id_5beb27ea___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NavTabsTable.vue?vue&type=template&id=5beb27ea& */ "./resources/assets/vue/components/Table/NavTabsTable.vue?vue&type=template&id=5beb27ea&");
+/* harmony import */ var _NavTabsTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NavTabsTable.vue?vue&type=script&lang=js& */ "./resources/assets/vue/components/Table/NavTabsTable.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _NavTabsTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _NavTabsTable_vue_vue_type_template_id_5beb27ea___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _NavTabsTable_vue_vue_type_template_id_5beb27ea___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/assets/vue/components/Table/NavTabsTable.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/assets/vue/components/Table/NavTabsTable.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/assets/vue/components/Table/NavTabsTable.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NavTabsTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./NavTabsTable.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/vue/components/Table/NavTabsTable.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NavTabsTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/assets/vue/components/Table/NavTabsTable.vue?vue&type=template&id=5beb27ea&":
+/*!***********************************************************************************************!*\
+  !*** ./resources/assets/vue/components/Table/NavTabsTable.vue?vue&type=template&id=5beb27ea& ***!
+  \***********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NavTabsTable_vue_vue_type_template_id_5beb27ea___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./NavTabsTable.vue?vue&type=template&id=5beb27ea& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/vue/components/Table/NavTabsTable.vue?vue&type=template&id=5beb27ea&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NavTabsTable_vue_vue_type_template_id_5beb27ea___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NavTabsTable_vue_vue_type_template_id_5beb27ea___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/assets/vue/components/Weather/WeatherWidget.vue":
 /*!*******************************************************************!*\
   !*** ./resources/assets/vue/components/Weather/WeatherWidget.vue ***!
@@ -81810,12 +82026,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Sidebar_SidebarLink__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Sidebar/SidebarLink */ "./resources/assets/vue/components/Sidebar/SidebarLink.vue");
 /* harmony import */ var _Navbar_TopNavbar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Navbar/TopNavbar */ "./resources/assets/vue/components/Navbar/TopNavbar.vue");
 /* harmony import */ var _Weather_WeatherWidget__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Weather/WeatherWidget */ "./resources/assets/vue/components/Weather/WeatherWidget.vue");
+/* harmony import */ var _Table_NavTabsTable__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Table/NavTabsTable */ "./resources/assets/vue/components/Table/NavTabsTable.vue");
 
 
 
 
 
-[_Sidebar_Sidebar__WEBPACK_IMPORTED_MODULE_1__["default"], _Sidebar_SidebarLink__WEBPACK_IMPORTED_MODULE_2__["default"], _Navbar_TopNavbar__WEBPACK_IMPORTED_MODULE_3__["default"], _Weather_WeatherWidget__WEBPACK_IMPORTED_MODULE_4__["default"]].forEach(function (Component) {
+
+[_Sidebar_Sidebar__WEBPACK_IMPORTED_MODULE_1__["default"], _Sidebar_SidebarLink__WEBPACK_IMPORTED_MODULE_2__["default"], _Navbar_TopNavbar__WEBPACK_IMPORTED_MODULE_3__["default"], _Weather_WeatherWidget__WEBPACK_IMPORTED_MODULE_4__["default"], _Table_NavTabsTable__WEBPACK_IMPORTED_MODULE_5__["default"]].forEach(function (Component) {
   vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(Component.name, Component);
 });
 
@@ -81936,6 +82154,12 @@ var Dashboard = function Dashboard() {
   });
 };
 
+var OrderIndex = function OrderIndex() {
+  return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(1)]).then(__webpack_require__.bind(null, /*! ~/pages/Orders/Index */ "./resources/assets/vue/pages/Orders/Index.vue")).then(function (m) {
+    return m["default"] || m;
+  });
+};
+
 /* harmony default export */ __webpack_exports__["default"] = ([{
   path: '/',
   component: _pages_Index__WEBPACK_IMPORTED_MODULE_0__["default"],
@@ -81945,6 +82169,17 @@ var Dashboard = function Dashboard() {
     component: Dashboard,
     meta: {
       title: 'Главная'
+    }
+  }]
+}, {
+  path: '/orders',
+  component: _pages_Index__WEBPACK_IMPORTED_MODULE_0__["default"],
+  children: [{
+    name: 'orders',
+    path: '',
+    component: OrderIndex,
+    meta: {
+      title: 'Заказы'
     }
   }]
 }]);
@@ -81958,8 +82193,8 @@ var Dashboard = function Dashboard() {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\AVANGARD\homestead\laravel-homework\resources\assets\js\app.js */"./resources/assets/js/app.js");
-module.exports = __webpack_require__(/*! D:\AVANGARD\homestead\laravel-homework\resources\assets\sass\app.scss */"./resources/assets/sass/app.scss");
+__webpack_require__(/*! D:\Homestead\laravel-homework\resources\assets\js\app.js */"./resources/assets/js/app.js");
+module.exports = __webpack_require__(/*! D:\Homestead\laravel-homework\resources\assets\sass\app.scss */"./resources/assets/sass/app.scss");
 
 
 /***/ })

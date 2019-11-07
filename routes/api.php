@@ -15,3 +15,11 @@ use Illuminate\Http\Request;
 
 app('router')
     ->get('weather/{vendor}', 'Api\WeatherController');
+
+app('router')
+    ->get('orders/grouped', 'Api\OrderController@grouped')
+    ->name('orders.grouped');
+
+app('router')
+    ->apiResource('orders', 'Api\OrderController');
+
