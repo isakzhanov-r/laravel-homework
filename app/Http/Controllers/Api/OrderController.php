@@ -34,7 +34,14 @@ class OrderController extends Controller
      */
     public function grouped()
     {
-        $data = $this->order->grouped(true);
+        $data = $this->order->getGrouped(true);
+
+        return response()->json($data);
+    }
+
+    public function groupedCount()
+    {
+        $data = $this->order->getGroupedCount(true);
 
         return response()->json($data);
     }

@@ -1,5 +1,5 @@
 <template>
-    <v-card v-if="weather.hasOwnProperty('fact')" class="md-card-weather">
+    <v-card v-if="weather.hasOwnProperty('fact')" class="v-card-weather">
         <v-list-item two-line>
             <v-list-item-content>
                 <v-list-item-title class="headline">Брянск</v-list-item-title>

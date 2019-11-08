@@ -11,5 +11,10 @@ const router = new VRouter({
     mode: 'history',
     routes: web
 });
+router.afterEach(to => {
+    router.app.$nextTick(()=>{
+        document.title = to.meta.title ;
+    })
+});
 
 export default router;

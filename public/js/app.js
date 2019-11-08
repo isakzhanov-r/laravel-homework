@@ -31861,7 +31861,7 @@ var render = function() {
   return _vm.weather.hasOwnProperty("fact")
     ? _c(
         "v-card",
-        { staticClass: "md-card-weather" },
+        { staticClass: "v-card-weather" },
         [
           _c(
             "v-list-item",
@@ -86835,6 +86835,11 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: 'history',
   routes: _web__WEBPACK_IMPORTED_MODULE_3__["default"]
 });
+router.afterEach(function (to) {
+  router.app.$nextTick(function () {
+    document.title = to.meta.title;
+  });
+});
 /* harmony default export */ __webpack_exports__["default"] = (router);
 
 /***/ }),
@@ -86863,6 +86868,12 @@ var OrderIndex = function OrderIndex() {
   });
 };
 
+var OrderEdit = function OrderEdit() {
+  return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ~/pages/Orders/Edit */ "./resources/assets/vue/pages/Orders/Edit.vue")).then(function (m) {
+    return m["default"] || m;
+  });
+};
+
 /* harmony default export */ __webpack_exports__["default"] = ([{
   path: '/',
   component: _pages_Index__WEBPACK_IMPORTED_MODULE_0__["default"],
@@ -86883,6 +86894,13 @@ var OrderIndex = function OrderIndex() {
     component: OrderIndex,
     meta: {
       title: 'Заказы'
+    }
+  }, {
+    name: 'orders.edit',
+    path: '/edit/:id',
+    component: OrderEdit,
+    meta: {
+      title: 'Редактирование заказа'
     }
   }]
 }]);

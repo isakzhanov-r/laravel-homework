@@ -9,7 +9,9 @@ use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 
 interface OrderRepositoryContract
 {
-    public function getAll():EloquentCollection;
+    public function getAll(): EloquentCollection;
 
-    public function grouped($with_all = false): Collection;
+    public function getGrouped($with_all = false): Collection;
+
+    public function getGroupedCount($with_all = false): Collection;
 }

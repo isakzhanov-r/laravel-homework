@@ -30,7 +30,7 @@ class OrderRepository extends BaseRepository implements OrderRepositoryContract
             ->get();
     }
 
-    public function grouped($with_all = false): Collection
+    public function getGrouped($with_all = false): Collection
     {
         $data = collect();
         if ($with_all) {
@@ -44,34 +44,55 @@ class OrderRepository extends BaseRepository implements OrderRepositoryContract
         return $data;
     }
 
-    protected function groupedNew(): Collection
+    public function getGroupedCount($with_all = false): Collection
+    {
+        $data = collect();
+        if ($with_all) {
+            $data->push(['id' => 'all', 'title' => 'Все заявки', 'count' => $this->getAll()->count()]);
+        }
+        $data->push(['id' => 'new', 'title' => 'Новые заявки', 'count' => $this->groupedNew(-1)->count()]);
+        $data->push(['id' => 'current', 'title' => 'Текущие заявки', 'count' => $this->groupedCurrent()->count()]);
+        $data->push(['id' => 'completed', 'title' => 'Выполненные заявки', 'count' => $this->groupedCompleted(-1)->count()]);
+        $data->push(['id' => 'past_due', 'title' => 'Просроченные заявки', 'count' => $this->groupedPastDue(-1)->count()]);
+
+        return $data;
+    }
+
+    protected function groupedNew(int $limit = 50): Collection
     {
         return $this->model->query()
             ->where('delivery_at', '>', Carbon::now())
             ->where('status', '=', 0)
-            ->limit(50)
             ->with('partner', 'products')
+            ->limit($limit)
             ->get();
     }
 
-    protected function groupedPastDue(): Collection
+    protected function groupedPastDue(int $limit = 50): Collection
     {
-        return $this->model->query()->where('delivery_at', '<', Carbon::now())
-            ->where('status', '=', 10)->limit(50)
-            ->with('partner', 'products')->get();
+        return $this->model->query()
+            ->where('delivery_at', '<', Carbon::now())
+            ->where('status', '=', 10)
+            ->with('partner', 'products')
+            ->limit($limit)
+            ->get();
     }
 
     protected function groupedCurrent(): Collection
     {
-        return $this->model->query()->where('delivery_at', '>=', Carbon::now()->addHours(24))
+        return $this->model->query()
+            ->where('delivery_at', '>=', Carbon::now()->addHours(24))
             ->where('status', '=', 10)
             ->with('partner', 'products')->get();
     }
 
-    protected function groupedCompleted(): Collection
+    protected function groupedCompleted(int $limit = 50): Collection
     {
-        return $this->model->query()->whereBetween('delivery_at', [Carbon::today(), Carbon::today()->addHours(24)])
-            ->where('status', '=', 20)->limit(50)
-            ->with('partner', 'products')->get();
+        return $this->model->query()
+            ->whereBetween('delivery_at', [Carbon::today(), Carbon::today()->addHours(24)])
+            ->where('status', '=', 20)
+            ->with('partner', 'products')
+            ->limit($limit)
+            ->get();
     }
 }
