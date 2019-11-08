@@ -16,16 +16,15 @@
         <div class="sidebar-wrapper">
             <weather-widget/>
             <slot name="content"/>
-            <md-list class="nav">
+            <v-list shaped class="nav">
                 <slot>
                     <sidebar-link
                             v-for="(link, index) in sidebarLinks"
                             :key="link.name + index"
-                            :to="link.path"
                             :link="link">
                     </sidebar-link>
                 </slot>
-            </md-list>
+            </v-list>
         </div>
     </div>
 </template>

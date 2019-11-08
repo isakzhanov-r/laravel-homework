@@ -4,11 +4,12 @@
                 class="md-list-item-router md-list-item-container md-button-clean"
                 @click="hideSidebar"
                 v-bind="$attrs"
+                :to="{name:link.name}"
         >
             <div class="md-list-item-content md-ripple">
                 <slot>
-                    <md-icon>{{ link.icon }}</md-icon>
-                    <p>{{ link.name }}</p>
+                    <v-icon>{{ link.icon }}</v-icon>
+                    <p>{{ link.title }}</p>
                 </slot>
             </div>
         </router-link>
@@ -29,6 +30,7 @@
                 default: () => {
                     return {
                         name: '',
+                        title: '',
                         path: '',
                         icon: ''
                     };

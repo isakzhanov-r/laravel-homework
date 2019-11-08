@@ -1,54 +1,69 @@
 <template>
-    <md-card class="md-card-weather" v-if="weather">
-        <md-card-header>
-            <md-icon :md-src="getIcon()"/>
-        </md-card-header>
+    <v-card v-if="weather.hasOwnProperty('fact')" class="md-card-weather">
+        <v-list-item two-line>
+            <v-list-item-content>
+                <v-list-item-title class="headline">Брянск</v-list-item-title>
+                <v-list-item-subtitle v-if="'condition' in weather.fact">{{ getCondition(weather.fact.condition) }}</v-list-item-subtitle>
+            </v-list-item-content>
+        </v-list-item>
+        <v-card-text>
+            <v-row align="center">
+                <v-col class="display-3" cols="6">
+                    {{ weather.fact.temp }}&deg;C
+                </v-col>
+                <v-col cols="6" v-if="'icon' in weather.fact">
+                    <v-img
+                            :src="getIcon()"
+                            width="92"
+                    ></v-img>
+                </v-col>
+            </v-row>
+        </v-card-text>
+        <v-list-item>
+            <v-list-item-icon>
+                <v-icon>send</v-icon>
+            </v-list-item-icon>
+            <v-list-item-subtitle>{{ weather.fact.wind_speed }} km/h</v-list-item-subtitle>
+        </v-list-item>
+        <v-card-actions>
+            <div class="stats">
+                <v-icon>date_range</v-icon>
+                {{ getDate(weather.fact.obs_time) }}
+            </div>
+            <v-spacer/>
+            <v-btn icon @click="show = !show">
+                <v-icon>{{ show ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
+            </v-btn>
+        </v-card-actions>
 
-        <md-card-content>
-            <p class="category">Брянск</p>
-            <h4 class="title">{{ getCondition(weather.fact.condition) }}</h4>
-            <h5 class="title">Температура: {{ weather.fact.temp }} ℃</h5>
-        </md-card-content>
-
-        <md-card-expand>
-            <md-card-actions md-alignment="space-between">
-                <div class="stats">
-                    <md-icon>date_range</md-icon>
-                    {{ getDate(weather.fact.obs_time) }}
-                </div>
-
-                <md-card-expand-trigger>
-                    <md-button class="md-icon-button">
-                        <md-icon>keyboard_arrow_down</md-icon>
-                    </md-button>
-                </md-card-expand-trigger>
-            </md-card-actions>
-
-            <md-card-expand-content>
-                <md-card-content>
+        <v-expand-transition>
+            <div v-show="show">
+                <v-divider/>
+                <v-card-text>
                     <p>Ощущаемая температура: <b v-text="weather.fact.feels_like"/>(°C).</p>
                     <br>
-                    <p>Скорость ветра: <b v-text="weather.fact.wind_speed"/> (в м/с).</p>
+                    <p>Температура воды : <b v-text="weather.fact.temp_water"/> (°C).</p>
                     <br>
                     <p>Скорость порывов ветра: <b v-text="weather.fact.wind_gust"/> (в м/с).</p>
-                </md-card-content>
-            </md-card-expand-content>
-        </md-card-expand>
-    </md-card>
+                </v-card-text>
+            </div>
+        </v-expand-transition>
+    </v-card>
 </template>
 
 <script>
     export default {
         name: 'WeatherWidget',
         data: () => ({
-            weather: []
+            weather: [],
+            show: false
         }),
         created() {
             this.getWeather();
         },
         methods: {
             getWeather() {
-                axios.get('api/weather/yandex')
+                axios.get('/api/weather/yandex')
                     .then(response => {
                         this.weather = response.data;
                     });

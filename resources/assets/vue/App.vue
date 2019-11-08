@@ -1,31 +1,9 @@
 <template>
-    <div id="material-kit">
+    <v-app>
         <div class="wrapper" :class="{ 'nav-open': $root.sidebarStore.showSidebar }">
             <sidebar>
-                <sidebar-link to="/">
-                    <md-icon>dashboard</md-icon>
-                    <p>Главная</p>
-                </sidebar-link>
-                <sidebar-link to="/orders">
-                    <md-icon>content_paste</md-icon>
-                    <p>Заказы</p>
-                </sidebar-link>
-                <sidebar-link to="/typography">
-                    <md-icon>library_books</md-icon>
-                    <p>Typography</p>
-                </sidebar-link>
-                <sidebar-link to="/icons">
-                    <md-icon>bubble_chart</md-icon>
-                    <p>Icons</p>
-                </sidebar-link>
-                <sidebar-link to="/maps">
-                    <md-icon>location_on</md-icon>
-                    <p>Maps</p>
-                </sidebar-link>
-                <sidebar-link to="/notifications">
-                    <md-icon>notifications</md-icon>
-                    <p>Notifications</p>
-                </sidebar-link>
+                <sidebar-link :link="{name:'home',title:'Главная',icon:'dashboard'}"/>
+                <sidebar-link :link="{name:'orders',title:'Заказы',icon:'content_paste'}"/>
             </sidebar>
             <div class="main-panel">
                 <top-navbar/>
@@ -35,7 +13,7 @@
             </div>
             <router-view name="footer"/>
         </div>
-    </div>
+    </v-app>
 </template>
 
 <script>

@@ -46,25 +46,32 @@ class OrderRepository extends BaseRepository implements OrderRepositoryContract
 
     protected function groupedNew(): Collection
     {
-        return $this->model->query()->where('delivery_at', '>', Carbon::now())
-            ->where('status', '=', 0)->limit(50)->get();
+        return $this->model->query()
+            ->where('delivery_at', '>', Carbon::now())
+            ->where('status', '=', 0)
+            ->limit(50)
+            ->with('partner', 'products')
+            ->get();
     }
 
     protected function groupedPastDue(): Collection
     {
         return $this->model->query()->where('delivery_at', '<', Carbon::now())
-            ->where('status', '=', 10)->limit(50)->get();
+            ->where('status', '=', 10)->limit(50)
+            ->with('partner', 'products')->get();
     }
 
     protected function groupedCurrent(): Collection
     {
         return $this->model->query()->where('delivery_at', '>=', Carbon::now()->addHours(24))
-            ->where('status', '=', 10)->get();
+            ->where('status', '=', 10)
+            ->with('partner', 'products')->get();
     }
 
     protected function groupedCompleted(): Collection
     {
         return $this->model->query()->whereBetween('delivery_at', [Carbon::today(), Carbon::today()->addHours(24)])
-            ->where('status', '=', 20)->limit(50)->get();
+            ->where('status', '=', 20)->limit(50)
+            ->with('partner', 'products')->get();
     }
 }

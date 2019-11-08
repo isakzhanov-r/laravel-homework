@@ -1,30 +1,42 @@
 <template>
-    <div>
-        <md-table v-model="items">
-            <md-table-row slot="md-table-row" slot-scope="{ item }">
-                <md-table-cell md-label="ID">{{ item.client_email }}</md-table-cell>
-                <md-table-cell>
-                    <md-button class="md-just-icon md-simple md-primary">
-                        <md-icon>edit</md-icon>
-                        <md-tooltip md-direction="top">Edit</md-tooltip>
-                    </md-button>
-                    <md-button class="md-just-icon md-simple md-danger">
-                        <md-icon>close</md-icon>
-                        <md-tooltip md-direction="top">Close</md-tooltip>
-                    </md-button>
-                </md-table-cell>
-            </md-table-row>
-            <md-table-pagination
-                    :md-size="5"
-                    :md-total="25"
-                    :md-page="1"
-                    md-label="Rows"
-                    md-separator="of"
-                    :md-page-options="[5, 10, 25]"
-                    >
-            </md-table-pagination>
-        </md-table>
-    </div>
+    <v-card>
+        <v-data-table
+                :headers="headers"
+                :items="items"
+                item-key="id"
+                :items-per-page="25"
+                :footer-props="{itemsPerPageText : 'Колличество на странице', itemsPerPageOptions : [10,25,50]}"
+                :single-expand="singleExpand"
+                :expanded.sync="expanded"
+                show-expand
+                class="elevation-1">
+            <template v-slot:item.price="{ item }">
+                {{ sumProducts(item.products) }} P.
+            </template>
+            <template v-slot:item.status="{ item }">
+                <v-chip v-if="item.status === 0" class="ma-2" color="green" text-color="white">новый</v-chip>
+                <v-chip v-if="item.status === 10" class="ma-2" color="primary" text-color="white">подтвержден
+                    <v-icon right>keyboard_arrow_down</v-icon>
+                </v-chip>
+                <v-chip v-if="item.status === 20" class="ma-2" color="orange" text-color="white">завершен
+                    <v-icon right>star</v-icon>
+                </v-chip>
+            </template>
+            <template v-slot:item.actions="{ item }">
+                <v-btn :to="{name: 'orders.edit', params: {id: item.id}}" text>
+                    <v-icon>edit</v-icon>
+                </v-btn>
+
+                <v-btn @click="destroy(item.id)" text>
+                    <v-icon>delete</v-icon>
+                </v-btn>
+            </template>
+            <template v-slot:expanded-item="{ headers, item }">
+                <td :colspan="headers.length">Продукты: {{ productsName(item.products) }}</td>
+            </template>
+
+        </v-data-table>
+    </v-card>
 </template>
 
 <script>
@@ -32,9 +44,9 @@
         name: 'nav-tabs-table',
         props: {
             items: {
-                    type: Array ,
-                    default: []
-                },
+                type: [Array, Object],
+                default: []
+            },
             edit: {
                 type: Boolean,
                 default: true
@@ -46,13 +58,44 @@
         },
         data() {
             return {
-                selected: []
+                selected: [],
+                expanded: [],
+                singleExpand: false,
+                headers: [
+                    {text: 'ID', value: 'id'},
+                    {text: 'Партнер', value: 'partner.name'},
+                    {text: 'Стоимость', value: 'price'},
+                    {text: 'Статус', value: 'status'},
+                    {text: 'Дата доставки', value: 'delivery_at'},
+                    {text: 'Действие', value: 'actions', sortable: false}
+                ],
+                itemsPerPageOptions: [
+                    10, 25, 50,-1
+                ]
             };
         },
         methods: {
             onSelect: function (items) {
                 this.selected = items;
+            },
+
+            sumProducts(products) {
+                var sum = 0;
+                products.forEach(product => {
+                    sum = sum + (product.price * product.pivot.quantity);
+                });
+                return sum;
+            },
+            productsName(products) {
+                var names = products.map(product => {
+                    return product.name;
+                });
+                return names.join(' , ');
+            },
+            destroy(order_id) {
+
             }
+
         }
     };
 </script>

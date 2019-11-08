@@ -5,11 +5,30 @@
  */
 
 import Vue from 'vue';
-import VueMaterial from 'vue-material';
+import Vuetify from 'vuetify';
 import router from '~/routes';
 import App from '~/App';
 
-Vue.use(VueMaterial);
+const vuetifyOptions = {
+    theme: {
+        dark: true,
+        themes: {
+            dark: {
+                background: '#272c33',
+                primary: '#3F51B5',
+                secondary: '#B0BEC5',
+                accent: '#8C9EFF',
+                error: '#B71C1C'
+            },
+        },
+    },
+    icons: {
+        iconfont: 'mdiSvg', // 'mdi' || 'mdiSvg' || 'md' || 'fa' || 'fa4'
+    },
+
+};
+
+Vue.use(Vuetify);
 
 const SidebarStore = {
     showSidebar: false,
@@ -31,5 +50,6 @@ Vue.mixin({
 
 new Vue({
     router,
+    vuetify: new Vuetify(vuetifyOptions),
     ...App
 }).$mount('#app');
