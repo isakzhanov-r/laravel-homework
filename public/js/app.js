@@ -86909,7 +86909,7 @@ var OrderEdit = function OrderEdit() {
     }
   }, {
     name: 'orders.edit',
-    path: '/edit/:id',
+    path: '/orders/edit/:id',
     component: OrderEdit,
     meta: {
       title: 'Редактирование заказа'

@@ -46,7 +46,9 @@ class OrderRepository extends BaseRepository implements OrderRepositoryContract
 
     public function getOrder($id): Order
     {
-        // TODO: Implement getOrder() method.
+        return $this->model->query()
+            ->with('partner', 'products')
+            ->findOrFail($id);
     }
 
     public function destroy(Order $order)

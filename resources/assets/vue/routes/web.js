@@ -12,7 +12,7 @@ export default [
     },{
         path:'/orders', component: Index, children: [
             {name: 'orders', path: '', component: OrderIndex, meta: {title: 'Заказы'}},
-            {name: 'orders.edit', path: '/edit/:id', component: OrderEdit, meta: {title: 'Редактирование заказа'}},
+            {name: 'orders.edit', path: '/orders/edit/:id', component: OrderEdit, meta: {title: 'Редактирование заказа'}},
         ]
     }
 ];

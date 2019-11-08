@@ -49,7 +49,9 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = $this->order->getOrder($id);
+
+        return response()->json($data);
     }
 
     /**
