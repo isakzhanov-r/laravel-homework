@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use App\Repositories\Order\OrderRepositoryContract;
 use Illuminate\Http\Request;
 
@@ -39,13 +40,6 @@ class OrderController extends Controller
         return response()->json($data);
     }
 
-    public function groupedCount()
-    {
-        $data = $this->order->getGroupedCount(true);
-
-        return response()->json($data);
-    }
-
     /**
      * Display the specified resource.
      *
@@ -78,8 +72,12 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Order $order)
     {
-        //
+        if ($this->order->destroy($order)) {
+            return response()->json(['message' => 'success']);
+        }
+
+        return response()->json(['message' => 'fail'], 400);
     }
 }

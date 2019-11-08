@@ -2300,7 +2300,19 @@ __webpack_require__.r(__webpack_exports__);
       });
       return names.join(' , ');
     },
-    destroy: function destroy(order_id) {}
+    destroy: function destroy(order_id) {
+      var _this = this;
+
+      axios["delete"]('/api/orders/' + order_id).then(function (response) {
+        var order = _this.items.find(function (item) {
+          return item.id === order_id;
+        });
+
+        var index = _this.items.indexOf(order);
+
+        _this.items.splice(index, 1);
+      });
+    }
   }
 });
 

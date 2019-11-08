@@ -44,18 +44,14 @@ class OrderRepository extends BaseRepository implements OrderRepositoryContract
         return $data;
     }
 
-    public function getGroupedCount($with_all = false): Collection
+    public function getOrder($id): Order
     {
-        $data = collect();
-        if ($with_all) {
-            $data->push(['id' => 'all', 'title' => 'Все заявки', 'count' => $this->getAll()->count()]);
-        }
-        $data->push(['id' => 'new', 'title' => 'Новые заявки', 'count' => $this->groupedNew(-1)->count()]);
-        $data->push(['id' => 'current', 'title' => 'Текущие заявки', 'count' => $this->groupedCurrent()->count()]);
-        $data->push(['id' => 'completed', 'title' => 'Выполненные заявки', 'count' => $this->groupedCompleted(-1)->count()]);
-        $data->push(['id' => 'past_due', 'title' => 'Просроченные заявки', 'count' => $this->groupedPastDue(-1)->count()]);
+        // TODO: Implement getOrder() method.
+    }
 
-        return $data;
+    public function destroy(Order $order)
+    {
+        return $order->delete();
     }
 
     protected function groupedNew(int $limit = 50): Collection

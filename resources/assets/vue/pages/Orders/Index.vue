@@ -21,6 +21,9 @@
                 </v-tabs-items>
             </div>
         </div>
+        <v-overlay :value="overlay">
+            <v-progress-circular indeterminate size="64"/>
+        </v-overlay>
     </div>
 </template>
 
@@ -29,7 +32,8 @@
         name: 'Index',
         data: () => ({
             orders: [],
-            tabs: null
+            tabs: null,
+            overlay: true
         }),
         created() {
             this.getOrders();
@@ -39,6 +43,7 @@
                 await axios.get('/api/orders/grouped')
                     .then(response => {
                         this.orders = response.data;
+                        this.overlay = false;
                     });
             }
         }

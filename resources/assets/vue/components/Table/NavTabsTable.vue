@@ -70,7 +70,7 @@
                     {text: 'Действие', value: 'actions', sortable: false}
                 ],
                 itemsPerPageOptions: [
-                    10, 25, 50,-1
+                    10, 25, 50, -1
                 ]
             };
         },
@@ -92,8 +92,13 @@
                 });
                 return names.join(' , ');
             },
-            destroy(order_id) {
 
+            destroy(order_id) {
+                axios.delete('/api/orders/' + order_id).then(response => {
+                    let order = this.items.find(item => item.id === order_id);
+                    let index = this.items.indexOf(order);
+                    this.items.splice(index, 1);
+                });
             }
 
         }

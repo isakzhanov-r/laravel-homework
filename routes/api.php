@@ -21,10 +21,6 @@ app('router')
     ->name('orders.grouped');
 
 app('router')
-    ->get('orders/grouped/count', 'Api\OrderController@groupedCount')
-    ->name('orders.grouped.count');
-
-app('router')
     ->apiResource('orders', 'Api\OrderController')
     ->except(['store']);
 
