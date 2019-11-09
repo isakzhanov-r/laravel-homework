@@ -21,7 +21,7 @@ class Product extends Model
 
     public function vendor()
     {
-        return $this->belongsTo(Vendor::class, 'id', 'vendor_id');
+        return $this->belongsTo(Vendor::class, 'vendor_id', 'id');
     }
 
     public function orders()

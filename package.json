@@ -27,6 +27,8 @@
     },
     "dependencies": {
         "material-design-icons-iconfont": "^5.0.1",
-        "resolve-url-loader": "^3.1.0"
+        "moment": "^2.24.0",
+        "resolve-url-loader": "^3.1.0",
+        "vuetify-datetime-picker": "^2.1.1"
     }
 }

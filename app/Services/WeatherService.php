@@ -5,7 +5,7 @@ namespace App\Services;
 
 
 use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Log;
+use Exception;
 
 class WeatherService
 {
@@ -58,8 +58,8 @@ class WeatherService
             ]);
 
             return $result->getBody();
-        } catch (\Exception $exception) {
-            throw new \Exception($exception->getMessage(), $exception->getCode());
+        } catch (Exception $exception) {
+            throw new Exception($exception->getMessage(), $exception->getCode());
         }
     }
 }

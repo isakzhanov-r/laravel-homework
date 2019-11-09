@@ -6,6 +6,7 @@
 
 import Vue from 'vue';
 import Vuetify from 'vuetify';
+import DatetimePicker from 'vuetify-datetime-picker'
 import router from '~/routes';
 import App from '~/App';
 
@@ -29,6 +30,7 @@ const vuetifyOptions = {
 };
 
 Vue.use(Vuetify);
+Vue.use(DatetimePicker);
 
 const SidebarStore = {
     showSidebar: false,

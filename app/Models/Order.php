@@ -18,16 +18,17 @@ class Order extends Model
         'status',
         'client_email',
         'partner_id',
+        'delivery_at',
     ];
 
     public function partner()
     {
-        return $this->belongsTo(Partner::class,  'partner_id','id');
+        return $this->belongsTo(Partner::class, 'partner_id', 'id');
     }
 
     public function products()
     {
-        return $this->belongsToMany(Product::class,'order_products')
+        return $this->belongsToMany(Product::class, 'order_products')
             ->withPivot([
                 'quantity',
                 'price',

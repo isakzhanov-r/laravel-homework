@@ -4,11 +4,15 @@
 namespace App\Repositories\Order;
 
 
+use App\Http\Requests\Order\UpdateRequest;
+use App\Mail\OrderMail;
 use App\Models\Order;
 use App\Repositories\BaseRepository;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Illuminate\Support\Facades\Mail;
+use function Sodium\compare;
 
 
 class OrderRepository extends BaseRepository implements OrderRepositoryContract
@@ -49,6 +53,16 @@ class OrderRepository extends BaseRepository implements OrderRepositoryContract
         return $this->model->query()
             ->with('partner', 'products')
             ->findOrFail($id);
+    }
+
+    public function update(UpdateRequest $request, Order $order): Order
+    {
+        $fillable = $this->model->getFillable();
+        $order->update($request->only($fillable));
+        $this->syncProducts($request, $order);
+        $this->sendMail($order);
+
+        return $order;
     }
 
     public function destroy(Order $order)
@@ -92,5 +106,26 @@ class OrderRepository extends BaseRepository implements OrderRepositoryContract
             ->with('partner', 'products')
             ->limit($limit)
             ->get();
+    }
+
+    protected function syncProducts(UpdateRequest $request, Order $order)
+    {
+        $pivot    = [];
+        $products = $request->products;
+        foreach ($products as $product) {
+            $quantity              = $product['pivot']['quantity'];
+            $price                 = $product['pivot']['price'];
+            $pivot[$product['id']] = compact('price', 'quantity');
+        }
+        $order->products()->sync($pivot);
+    }
+
+    protected function sendMail(Order $order)
+    {
+        if ($order->status === 20) {
+            $mail = new OrderMail($order);
+
+            Mail::send($mail);
+        }
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Order\UpdateRequest;
 use App\Models\Order;
 use App\Repositories\Order\OrderRepositoryContract;
 use Illuminate\Http\Request;
@@ -62,9 +63,11 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, Order $order)
     {
-        //
+        $this->order->update($request, $order);
+
+        return response()->json(['message' => 'Обновлено']);
     }
 
     /**

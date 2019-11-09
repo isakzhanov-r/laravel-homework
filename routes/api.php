@@ -24,3 +24,11 @@ app('router')
     ->apiResource('orders', 'Api\OrderController')
     ->except(['store']);
 
+app('router')
+    ->apiResource('products', 'Api\ProductController')
+    ->only(['index','update']);
+
+app('router')
+    ->apiResource('partners', 'Api\PartnerController')
+    ->only(['index']);
+
