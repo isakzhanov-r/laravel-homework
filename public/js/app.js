@@ -1993,6 +1993,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'App'
 });
@@ -48349,6 +48350,16 @@ var render = function() {
             _c("sidebar-link", {
               attrs: {
                 link: { name: "orders", title: "Заказы", icon: "content_paste" }
+              }
+            }),
+            _vm._v(" "),
+            _c("sidebar-link", {
+              attrs: {
+                link: {
+                  name: "products",
+                  title: "Продукты",
+                  icon: "shopping_cart"
+                }
               }
             })
           ],
@@ -103871,7 +103882,13 @@ var OrderIndex = function OrderIndex() {
 };
 
 var OrderEdit = function OrderEdit() {
-  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1)]).then(__webpack_require__.bind(null, /*! ~/pages/Orders/Edit */ "./resources/assets/vue/pages/Orders/Edit.vue")).then(function (m) {
+  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(6)]).then(__webpack_require__.bind(null, /*! ~/pages/Orders/Edit */ "./resources/assets/vue/pages/Orders/Edit.vue")).then(function (m) {
+    return m["default"] || m;
+  });
+};
+
+var ProductIndex = function ProductIndex() {
+  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(7)]).then(__webpack_require__.bind(null, /*! ~/pages/Products/Index */ "./resources/assets/vue/pages/Products/Index.vue")).then(function (m) {
     return m["default"] || m;
   });
 };
@@ -103903,6 +103920,17 @@ var OrderEdit = function OrderEdit() {
     component: OrderEdit,
     meta: {
       title: 'Редактирование заказа'
+    }
+  }]
+}, {
+  path: '/products',
+  component: _pages_Index__WEBPACK_IMPORTED_MODULE_0__["default"],
+  children: [{
+    name: 'products',
+    path: '',
+    component: ProductIndex,
+    meta: {
+      title: 'Продукты'
     }
   }]
 }]);

@@ -4,6 +4,7 @@
             <sidebar>
                 <sidebar-link :link="{name:'home',title:'Главная',icon:'dashboard'}"/>
                 <sidebar-link :link="{name:'orders',title:'Заказы',icon:'content_paste'}"/>
+                <sidebar-link :link="{name:'products',title:'Продукты',icon:'shopping_cart'}"/>
             </sidebar>
             <div class="main-panel">
                 <top-navbar/>

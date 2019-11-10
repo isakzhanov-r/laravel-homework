@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Product\UpdateRequest;
+use App\Models\Product;
 use App\Repositories\Product\ProductRepositoryContract;
 use Illuminate\Http\Request;
 
@@ -35,8 +37,10 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, Product $product)
     {
-        //
+        $this->products->update($request, $product);
+
+        return response()->json(['message' => 'Обновлено']);
     }
 }

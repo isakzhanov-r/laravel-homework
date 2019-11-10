@@ -4,6 +4,7 @@
 namespace App\Repositories\Product;
 
 
+use App\Http\Requests\Product\UpdateRequest;
 use App\Models\Product;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Collection;
@@ -21,5 +22,13 @@ class ProductRepository extends BaseRepository implements ProductRepositoryContr
         return $this->model->query()
             ->with('vendor')
             ->get();
+    }
+
+    public function update(UpdateRequest $request, Product $product): Product
+    {
+        $fillable = $this->model->getFillable();
+        $product->update($request->only($fillable));
+
+        return $product;
     }
 }

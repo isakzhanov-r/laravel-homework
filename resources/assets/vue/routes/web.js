@@ -3,16 +3,22 @@ import Index from '../pages/Index';
 const Dashboard = () => import('~/pages/Dashboard').then(m => m.default || m);
 const OrderIndex = () => import('~/pages/Orders/Index').then(m => m.default || m);
 const OrderEdit = () => import('~/pages/Orders/Edit').then(m => m.default || m);
+const ProductIndex = () => import('~/pages/Products/Index').then(m => m.default || m);
 
 export default [
     {
         path: '/', component: Index, children: [
-            {name: 'home', path: '', component: Dashboard, meta: {title: 'Главная'}},
-        ],
-    },{
-        path:'/orders', component: Index, children: [
+            {name: 'home', path: '', component: Dashboard, meta: {title: 'Главная'}}
+        ]
+    }, {
+        path: '/orders', component: Index, children: [
             {name: 'orders', path: '', component: OrderIndex, meta: {title: 'Заказы'}},
-            {name: 'orders.edit', path: '/orders/edit/:id', component: OrderEdit, meta: {title: 'Редактирование заказа'}},
+            {name: 'orders.edit', path: '/orders/edit/:id', component: OrderEdit, meta: {title: 'Редактирование заказа'}}
+        ]
+    },
+    {
+        path: '/products', component: Index, children: [
+            {name: 'products', path: '', component: ProductIndex, meta: {title: 'Продукты'}}
         ]
     }
 ];
