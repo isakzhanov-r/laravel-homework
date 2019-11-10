@@ -7,13 +7,19 @@
             <v-card-text>
                 <v-row>
                     <v-col cols="4">
-                        <v-text-field v-model="form.client_email" label="E-Mail Клиента"/>
+                        <v-text-field v-model="form.client_email" label="E-Mail Клиента"
+                                      :error=" form.errors.get('client_email') ? true : false"
+                                      :error-messages=" form.errors.get('client_email')"/>
                     </v-col>
                     <v-col cols="4">
-                        <v-select v-model="form.status" :items="statuses" label="Статус" item-text="title" item-value="status" required/>
+                        <v-select v-model="form.status" :items="statuses" label="Статус" item-text="title" item-value="status"
+                                  :error=" form.errors.get('status') ? true : false"
+                                  :error-messages=" form.errors.get('status')" required/>
                     </v-col>
                     <v-col cols="4">
-                        <v-select v-model="form.partner_id" :items="partners" label="Партнер" item-text="name" item-value="id" required/>
+                        <v-select v-model="form.partner_id" :items="partners" label="Партнер" item-text="name" item-value="id"
+                                  :error=" form.errors.get('partner_id') ? true : false"
+                                  :error-messages=" form.errors.get('partner_id')" required/>
                     </v-col>
                 </v-row>
 
@@ -135,22 +141,24 @@
 
 <script>
     import * as moment from 'moment';
+    import Form from 'vform';
 
     export default {
         name: 'Edit',
         data: () => ({
             dialog: false,
             overlay: true,
+            errors: null,
             products: [],
             partners: [],
-            form: {
+            form: new Form({
                 id: null,
                 client_email: null,
                 status: null,
                 delivery_at: null,
                 partner_id: null,
                 products: []
-            },
+            }),
             addProduct: {
                 id: null,
                 quantity: 1,
@@ -179,7 +187,7 @@
                     return new Date(this.form.delivery_at);
                 },
                 set(value) {
-                    this.form.delivery_at = moment(value).format("YYYY-MM-DD HH:mm:ss");
+                    this.form.delivery_at = moment(value).format('YYYY-MM-DD HH:mm:ss');
                 }
             },
             addProductQuantity: {
@@ -244,11 +252,16 @@
                 this.closeDialog();
             },
             updateOrder() {
-                this.overlay = true;
-                axios.put('/api/orders/' + this.$route.params.id, this.form)
-                    .then(response => {
-                        this.overlay = false;
+                var $this = this;
+                $this.overlay = true;
+                this.form.put('/api/orders/' + this.$route.params.id)
+                    .then()
+                    .catch(e => {
+                        this.errors = e.response.data.message || e.message;
                     })
+                    .finally(function () {
+                        $this.overlay = false;
+                    });
             },
             getPartners() {
                 axios.get('/api/partners')

@@ -103859,19 +103859,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var Dashboard = function Dashboard() {
-  return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ~/pages/Dashboard */ "./resources/assets/vue/pages/Dashboard.vue")).then(function (m) {
+  return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ~/pages/Dashboard */ "./resources/assets/vue/pages/Dashboard.vue")).then(function (m) {
     return m["default"] || m;
   });
 };
 
 var OrderIndex = function OrderIndex() {
-  return Promise.all(/*! import() */[__webpack_require__.e(3), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! ~/pages/Orders/Index */ "./resources/assets/vue/pages/Orders/Index.vue")).then(function (m) {
+  return Promise.all(/*! import() */[__webpack_require__.e(4), __webpack_require__.e(3)]).then(__webpack_require__.bind(null, /*! ~/pages/Orders/Index */ "./resources/assets/vue/pages/Orders/Index.vue")).then(function (m) {
     return m["default"] || m;
   });
 };
 
 var OrderEdit = function OrderEdit() {
-  return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(4)]).then(__webpack_require__.bind(null, /*! ~/pages/Orders/Edit */ "./resources/assets/vue/pages/Orders/Edit.vue")).then(function (m) {
+  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(1)]).then(__webpack_require__.bind(null, /*! ~/pages/Orders/Edit */ "./resources/assets/vue/pages/Orders/Edit.vue")).then(function (m) {
     return m["default"] || m;
   });
 };
