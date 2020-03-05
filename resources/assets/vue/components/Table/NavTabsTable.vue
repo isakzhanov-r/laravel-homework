@@ -82,7 +82,7 @@
             sumProducts(products) {
                 var sum = 0;
                 products.forEach(product => {
-                    sum = sum + (product.price * product.pivot.quantity);
+                    sum = sum + (product.price * product.quantity);
                 });
                 return sum;
             },

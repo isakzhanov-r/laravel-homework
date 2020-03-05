@@ -21,6 +21,10 @@ class Order extends Model
         'delivery_at',
     ];
 
+    protected $casts = [
+        'delivery_at' => 'datetime',
+    ];
+
     public function partner()
     {
         return $this->belongsTo(Partner::class, 'partner_id', 'id');

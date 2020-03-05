@@ -4,41 +4,36 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Order\UpdateRequest;
+use App\Http\Resources\Orders\GroupedCollection;
+use App\Http\Resources\Orders\OrderResource;
 use App\Models\Order;
-use App\Repositories\Order\OrderRepositoryContract;
-use Illuminate\Http\Request;
+use App\Repositories\Eloquent\OrderRepository;
 
 class OrderController extends Controller
 {
     protected $order;
 
-    public function __construct(OrderRepositoryContract $order_repository_contract)
+    public function __construct(OrderRepository $order_repository_contract)
     {
         $this->order = $order_repository_contract;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $data = $this->order->getAll();
+        $data = $this->order
+            ->getAll();
 
-        return response()->json($data);
+        return OrderResource::collection($data);
     }
 
-    /**
-     * Display a groped listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function grouped()
     {
-        $data = $this->order->getGrouped(true);
+        $data = $this->order
+            ->getAll();
 
-        return response()->json($data);
+        return GroupedCollection::make($data);
+
+        //return response()->json($data);
     }
 
     /**

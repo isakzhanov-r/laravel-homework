@@ -42,7 +42,7 @@
             async getOrders() {
                 await axios.get('/api/orders/grouped')
                     .then(response => {
-                        this.orders = response.data;
+                        this.orders = response.data.data;
                         this.overlay = false;
                     });
             }
