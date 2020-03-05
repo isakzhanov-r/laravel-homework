@@ -71,7 +71,7 @@
             getProducts() {
                 axios.get('/api/products')
                     .then(response => {
-                        this.products = response.data;
+                        this.products = response.data.data;
                     });
             },
             open(price) {
@@ -79,7 +79,7 @@
             },
             save(item) {
                 let $index = this.products.indexOf(item);
-                this.form.vendor_id = item.vendor_id;
+                this.form.vendor_id = item.vendor.id;
                 this.form.name = item.name;
                 this.form.price = item.price;
                 this.form.put('/api/products/' + item.id)

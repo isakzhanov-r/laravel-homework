@@ -8,6 +8,7 @@ use App\Http\Resources\Orders\GroupedCollection;
 use App\Http\Resources\Orders\OrderResource;
 use App\Models\Order;
 use App\Repositories\Eloquent\OrderRepository;
+use Illuminate\Http\Resources\Json\Resource;
 
 class OrderController extends Controller
 {
@@ -32,52 +33,30 @@ class OrderController extends Controller
             ->getAll();
 
         return GroupedCollection::make($data);
-
-        //return response()->json($data);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function show(Order $order)
     {
-        $data = $this->order->getOrder($id);
+        $data = $this->order
+            ->getOrder($order);
 
-        return response()->json($data);
+        return Resource::make($data);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function update(UpdateRequest $request, Order $order)
     {
-        $this->order->update($request, $order);
+        $data = $this->order
+            ->update($request, $order);
 
-        return response()->json(['message' => 'Обновлено']);
+        return OrderResource::make($data, trans('statuses.updated'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Order $order)
     {
         if ($this->order->destroy($order)) {
-            return response()->json(['message' => 'success']);
+            return response()->json(['message' => trans('statuses.deleted')]);
         }
 
-        return response()->json(['message' => 'fail'], 400);
+        return response()->json(['message' => trans('statuses.fail')], 400);
     }
 }

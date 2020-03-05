@@ -12,10 +12,8 @@ class GroupedCollection extends ResourceCollection
 {
     protected $with_all;
 
-    public function __construct($resource, $with_all = false)
+    public function __construct($resource)
     {
-        $this->with_all = $with_all;
-
         parent::__construct($resource);
     }
 
@@ -33,25 +31,12 @@ class GroupedCollection extends ResourceCollection
 
     private function groupCollection()
     {
-        $data = collect([
+        return collect([
             $this->newOrders('new', 'Новые', clone $this->collection),
             $this->currentOrders('current', 'Текущие', clone $this->collection),
             $this->completedOrders('completed', 'Выполненные', clone $this->collection),
-            $this->pastDueOrders('past_due', 'Просроченные', clone $this->collection),
+            $this->pastDueOrders('past_due', 'Просроченные', $this->collection),
         ]);
-
-        $this->when($this->with_all, $data->push($this->allOrders('all', 'Все')));
-
-        return $data;
-    }
-
-    private function allOrders($id, $title)
-    {
-        $items = $this->collection->transform(function (Order $item) {
-            return new OrderResource($item);
-        });
-
-        return compact('id', 'title', 'items');
     }
 
     private function newOrders($id, $title, $collection)

@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\UpdateRequest;
+use App\Http\Resources\Products\ProductResource;
 use App\Models\Product;
+use App\Repositories\Eloquent\ProductRepository;
 use App\Repositories\Product\ProductRepositoryContract;
 use Illuminate\Http\Request;
 
@@ -12,35 +14,24 @@ class ProductController extends Controller
 {
     protected $products;
 
-    public function __construct(ProductRepositoryContract $product_repository_contract)
+    public function __construct(ProductRepository $product_repository)
     {
-        $this->products = $product_repository_contract;
+        $this->products = $product_repository;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $data = $this->products->getAll();
+        $data = $this->products
+            ->getAll();
 
-        return response()->json($data);
+        return ProductResource::collection($data);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function update(UpdateRequest $request, Product $product)
     {
-        $this->products->update($request, $product);
+        $data = $this->products
+            ->update($request, $product);
 
-        return response()->json(['message' => 'Обновлено']);
+        return ProductResource::make($data, trans('statuses.updated'));
     }
 }

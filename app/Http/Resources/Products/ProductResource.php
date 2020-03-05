@@ -7,6 +7,15 @@ use Illuminate\Http\Resources\Json\JsonResource;
 /** @mixin \App\Models\Product */
 class ProductResource extends JsonResource
 {
+    protected $message;
+
+    public function __construct($resource, $message)
+    {
+        $this->message = $message;
+
+        parent::__construct($resource);
+    }
+
     /**
      * @param \Illuminate\Http\Request $request
      *
@@ -18,8 +27,17 @@ class ProductResource extends JsonResource
             'id'       => $this->id,
             'name'     => $this->name,
             'price'    => $this->price,
-            'quantity' => $this->pivot->quantity,
+            'quantity' => $this->whenPivotLoaded('order_products', function () {
+                return $this->pivot->quantity;
+            }),
             'vendor'   => new VendorResource($this->whenLoaded('vendor')),
         ];
+    }
+
+    public function with($request)
+    {
+        return $this->message
+            ? ['message' => $this->message]
+            : [];
     }
 }

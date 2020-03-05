@@ -2973,6 +2973,16 @@ h2.title {
   border: none;
 }
 
+.sidebar .sidebar-wrapper .v-list-group--active .v-list-item__title,
+.off-canvas-sidebar .sidebar-wrapper .v-list-group--active .v-list-item__title {
+  color: white;
+}
+
+.sidebar .sidebar-wrapper .v-list-group--active .v-list-item__content,
+.off-canvas-sidebar .sidebar-wrapper .v-list-group--active .v-list-item__content {
+  color: white;
+}
+
 .sidebar .sidebar-wrapper .nav,
 .off-canvas-sidebar .sidebar-wrapper .nav {
   padding: 0;

@@ -17,26 +17,39 @@
             <weather-widget/>
             <slot name="content"/>
             <v-list shaped class="nav">
-                <slot>
-                    <sidebar-link
-                            v-for="(link, index) in sidebarLinks"
-                            :key="link.name + index"
-                            :link="link">
-                    </sidebar-link>
-                </slot>
+                <v-list-group
+                        v-for="(link) in routes"
+                        :key="link.meta.title"
+                        :prepend-icon="link.meta.icon"
+                        no-action
+                >
+                    <template v-slot:activator>
+                        <v-list-item-content>
+                            <v-list-item-title v-text="link.meta.btn_name ? link.meta.btn_name: link.meta.title"></v-list-item-title>
+                        </v-list-item-content>
+                    </template>
+
+                    <v-list-item
+                            v-for="subItem in link.children"
+                            v-if="'is_show' in subItem.meta === false"
+                            :key="subItem.meta.title"
+                            :to="{name:subItem.name}"
+                    >
+                        <v-list-item-content>
+                            {{ subItem.meta.btn_name ? subItem.meta.btn_name: subItem.meta.title }}
+                        </v-list-item-content>
+                    </v-list-item>
+
+                </v-list-group>
             </v-list>
         </div>
     </div>
 </template>
 
 <script>
-    import SidebarLink from './SidebarLink.vue';
 
     export default {
         name: 'Sidebar',
-        components: {
-            SidebarLink
-        },
         props: {
             title: {
                 type: String,
@@ -58,10 +71,6 @@
                     return acceptedValues.indexOf(value) !== -1;
                 }
             },
-            sidebarLinks: {
-                type: Array,
-                default: () => []
-            },
             autoClose: {
                 type: Boolean,
                 default: true
@@ -77,6 +86,16 @@
                 return {
                     backgroundImage: `url(${this.backgroundImage})`
                 };
+            },
+
+            routes() {
+                let _items = this.$router.options.routes;
+
+                return _items.filter(route => {
+                    if (route.meta) {
+                        return ('is_show' in route.meta) === false || route.meta.is_show === true;
+                    }
+                });
             }
         }
     };

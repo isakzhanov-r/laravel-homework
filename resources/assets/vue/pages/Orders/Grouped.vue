@@ -5,10 +5,20 @@
                 <v-toolbar>
                     <v-toolbar-title>Списки заказов</v-toolbar-title>
                     <v-spacer/>
+                    <template v-slot:extension>
+                        <v-tabs v-model="tabs" fixed-tabs>
+                            <v-tabs-slider/>
+                            <v-tab class="primary--text" v-for="order in orders" :key="'tab-'+order.id" :href="'#tabs-'+order.id">
+                                {{ order.title }}
+                            </v-tab>
+                        </v-tabs>
+                    </template>
                 </v-toolbar>
-
-                <nav-tabs-table :items="orders"/>
-
+                <v-tabs-items v-model="tabs">
+                    <v-tab-item v-for="order in orders" :key="'item-'+order.id" :value="'tabs-' + order.id">
+                        <nav-tabs-table :items="order.items"/>
+                    </v-tab-item>
+                </v-tabs-items>
             </div>
         </div>
         <v-overlay :value="overlay">
@@ -19,7 +29,7 @@
 
 <script>
     export default {
-        name: 'Index',
+        name: 'Grouped',
         data: () => ({
             orders: [],
             tabs: null,
@@ -30,7 +40,7 @@
         },
         methods: {
             async getOrders() {
-                await axios.get('/api/orders')
+                await axios.get('/api/orders/grouped')
                     .then(response => {
                         this.orders = response.data.data;
                         this.overlay = false;

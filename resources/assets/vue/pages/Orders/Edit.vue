@@ -17,7 +17,11 @@
                                   :error-messages=" form.errors.get('status')" required/>
                     </v-col>
                     <v-col cols="4">
-                        <v-select v-model="form.partner_id" :items="partners" label="Партнер" item-text="name" item-value="id"
+                        <v-select v-model="form.partner_id"
+                                  :items="partners"
+                                  label="Партнер"
+                                  item-text="name"
+                                  item-value="id"
                                   :error=" form.errors.get('partner_id') ? true : false"
                                   :error-messages=" form.errors.get('partner_id')" required/>
                     </v-col>
@@ -209,19 +213,20 @@
             getOrder(order_id) {
                 axios.get('/api/orders/' + order_id)
                     .then(response => {
-                        this.form.id = response.data.id;
-                        this.form.client_email = response.data.client_email;
-                        this.form.status = response.data.status;
-                        this.form.delivery_at = response.data.delivery_at;
-                        this.form.partner_id = response.data.partner_id;
-                        this.form.products = response.data.products;
+                        var data = response.data.data;
+                        this.form.id = data.id;
+                        this.form.client_email = data.client_email;
+                        this.form.status = data.status;
+                        this.form.delivery_at = data.delivery_at;
+                        this.form.partner_id = data.partner_id;
+                        this.form.products = data.products;
                         this.overlay = false;
                     });
             },
             getProducts() {
                 axios.get('/api/products')
                     .then(response => {
-                        this.products = response.data;
+                        this.products = response.data.data;
                     });
 
             },
@@ -236,7 +241,6 @@
                 var quantity = this.addProduct.quantity;
                 var formProduct = this.getProductById(productId, this.form.products);
                 if (formProduct) {
-                    console.log(formProduct);
                     formProduct.pivot.quantity = formProduct.pivot.quantity + quantity;
                 } else {
                     var product = this.getProductById(productId);
@@ -266,7 +270,7 @@
             getPartners() {
                 axios.get('/api/partners')
                     .then(response => {
-                        this.partners = response.data;
+                        this.partners = response.data.data;
                     });
 
             },

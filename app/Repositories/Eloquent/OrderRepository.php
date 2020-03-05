@@ -7,7 +7,6 @@ namespace App\Repositories\Eloquent;
 use App\Http\Requests\Order\UpdateRequest;
 use App\Mail\OrderMail;
 use App\Models\Order;
-use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Mail;
@@ -49,7 +48,7 @@ class OrderRepository
             $id       = Arr::get($product, 'id');
             $price    = Arr::get($product, 'price');
             $quantity = Arr::get($product, 'pivot.quantity');
-            Arr::set($pivot, compact('id', 'price', 'quantity'));
+            Arr::set($pivot, $id, compact('price', 'quantity'));
         }, $products);
 
         $order->products()->sync($pivot);
